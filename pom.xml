@@ -17,6 +17,9 @@
         <java.version>1.8</java.version>
         <lombok.version>1.18.2</lombok.version>
         <obs.version>[3.20.6.1,)</obs.version>
+        <jackson.version>2.9.6</jackson.version>
+        <jackson.classmate>1.3.4</jackson.classmate>
+        <fastjson.version>1.2.68</fastjson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -52,7 +55,22 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
-
+        <!--Json-->
+       <!-- <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
     </dependencies>
 

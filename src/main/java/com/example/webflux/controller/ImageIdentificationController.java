@@ -1,5 +1,6 @@
 package com.example.webflux.controller;
 
+import com.example.webflux.beans.Result;
 import com.example.webflux.utils.FileUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.buffer.DataBufferUtils;
@@ -32,7 +33,7 @@ public class ImageIdentificationController {
     public Mono imageIdentificationUrl(@RequestParam String imageUrl) {
         try {
             FileUtils.verifyUrlIsImages(imageUrl);
-            return Mono.just("ok");
+            return Mono.just(Result.ok());
         } catch (Exception e) {
             log.error(" file download error is {} .  url is : {}",e,imageUrl);
             return Mono.error(e);
@@ -56,12 +57,8 @@ public class ImageIdentificationController {
                 String nameSuffix = filename.substring(filename.lastIndexOf("."));
                 Path tempFile = Files.createTempFile("test", UUID.randomUUID() + nameSuffix);
                 channel = AsynchronousFileChannel.open(tempFile, StandardOpenOption.WRITE);
-                DataBufferUtils.write(filePart.content(), channel, 0)
-                        .doOnComplete(() -> {
-                            System.out.println("finish");
-                        })
-                        .subscribe();
-                return Mono.just(filePart.filename());
+                DataBufferUtils.write(filePart.content(), channel, 0).subscribe();
+                return Mono.just(Result.ok());
             } catch (Exception e) {
                 log.error("{}",e);
                 return Flux.error(e);
@@ -75,8 +72,6 @@ public class ImageIdentificationController {
                 }
             }
         });
-
-
     }
 
 }
